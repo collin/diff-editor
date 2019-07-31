@@ -1,0 +1,75 @@
+.App {
+  font-family: sans-serif;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.CodeMirror {
+  height: 100%;
+}
+code.title {
+  background: #333;
+  color: #fafafa;
+  border-bottom: 2px solid green;
+}
+#source {
+  grid-row-start: 1;
+  grid-row-end: -1;
+  max-height: 100vh;
+}
+
+#starting-point,
+#solution {
+  max-height: 50vh;
+}
+
+.App > div {
+  max-width: 50vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.App > div > div {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.target-source {
+  background-color: rgba(255, 182, 193, 0.5);
+}
+.target-solution {
+  background-color: rgba(204, 255, 204, 0.5);
+}
+.target-starting-point {
+  background-color: rgba(204, 204, 255, 0.5);
+}
+.target-directive-begin {
+  background: rgba(33, 33, 33, 0.5);
+  color: #f0f0f0;
+  text-shadow: #333 0 1px, rgba(33, 33, 33, 0.25) 0 -1px;
+  /* border-left: 2rem solid red;
+  padding-left: 2rem; */
+  border-right: 2rem solid red;
+  border-top: 1px solid red;
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-block;
+}
+.target-directive-end {
+  background: rgba(33, 33, 33, 0.5);
+  color: #f0f0f0;
+  text-shadow: #333 0 1px, rgba(33, 33, 33, 0.25) 0 -1px;
+  /* border-left: 2rem solid red;
+  padding-left: 2rem; */
+  border-right: 2rem solid red;
+  border-bottom: 1px solid red;
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-block;
+}
