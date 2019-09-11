@@ -1,69 +1,30 @@
-import React from "react";
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+import React, {useContext, useState} from "react";
 import ReactDOM from "react-dom";
 
-import SourceEditor from "./components/source-editor";
-import TargetEditor from "./components/target-editor";
+import fs from "./util/socket-fs";
+import FileBrowser from "./components/file-browser";
+import TabStrip from "./components/tab-strip";
+import TripartEditor from "./components/tripart-editor";
+
+import OpenFilesContext, { useOpenFilesReducer } from './context/open-files';
 
 import "./styles.css";
-
 function App() {
-  const [document, setDocument] = React.useState();
-  const [source, setSource] = React.useState("");
 
-  function handleChange(value) {
-    // FIXME: this is terribly ineficient, but whatevs
-    // this prevents infinite update loops, which are worse for performance ;)
-    if (value === source) {
-      return;
-    }
-    setSource(value);
-  }
-  React.useEffect(() => {
-    handleChange(`\
-<!doctype html>
-<html>
-  <head>
-BEGIN>>> starting-point
-    <!-- put some header content here -->
-    <title>Put your own page title here</title>
-__END>>> starting-point
-BEGIN>>> solution
-    <title>Page title</title>
-    <meta charset="UTF-8">
-__END>>> solution
-  </head>
-  <body>
-BEGIN>>> starting-point
-    <!-- Place your page content here. -->
-__END>>> starting-point
-BEGIN>>> solution
-    <h1>Welcome to my awesome page :D</h1>
-__END>>> solution
-  </body>
-</html>`);
-  }, []);
+  const openFiles = useOpenFilesReducer()
 
   return (
-    <div className="App">
-      <SourceEditor
-        id="source"
-        text={source}
-        setDocument={setDocument}
-        title="Source"
-      />
-      <TargetEditor
-        id="starting-point"
-        document={document}
-        target="starting-point"
-        title="Starting Point"
-      />
-      <TargetEditor
-        id="solution"
-        document={document}
-        target="solution"
-        title="Solution"
-      />
-    </div>
+    <OpenFilesContext.Provider
+      value={openFiles}
+    >
+      <div className="App">
+        <TabStrip/>
+        <FileBrowser/>
+        <TripartEditor/>
+      </div>
+    </OpenFilesContext.Provider>
   );
 }
 
